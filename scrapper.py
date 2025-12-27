@@ -13,7 +13,7 @@ headers = {
     "Accept-Language": "en-US,en;q=0.9"
 }
 
-BASE_URL = "https://m.imdb.com"
+BASE_URL = "https://www.imdb.com"
 
 def scrape_top_movies(limit=10):
 
@@ -92,7 +92,7 @@ def scrape_top_movies(limit=10):
         if summary_link:
             try:
                 summary_page = requests.get(
-                    BASE_URL + summary_link,
+                    BASE_URL + str(summary_link),
                     headers=headers,
                     timeout=(5,10)
                 )
@@ -106,7 +106,7 @@ def scrape_top_movies(limit=10):
                 print(f"Warning: failed to fetch summary for {summary_link}: {e}")
                 summary = ""
             # polite delay to avoid blocking or rate-limits
-            time.sleep(0.2)
+            time.sleep(0.1)
 
         # ---------- INSERT INTO DB ----------
         print(f"Movie #{count+1}: title={movie_name!r}, year={movie_year}, rating={movie_rating}, link={summary_link}")
@@ -142,4 +142,4 @@ def scrape_top_movies(limit=10):
 
 
 if __name__ == "__main__":
-    scrape_top_movies(limit=10)
+    scrape_top_movies()
