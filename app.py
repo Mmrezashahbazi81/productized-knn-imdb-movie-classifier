@@ -20,11 +20,12 @@ def get_movies():
 def home():
     return "Welcome to the IMDB API! Try /movies"
 
-from scrapper import scrape_top_movies
+from selenium_scraper import scrape_top_movies
 
 @app.post("/scrape")
 def scrape_movies():
-    limit = int(request.args.get("limit", 100))
+    #limit = int(request.args.get("limit", 250))
+    limit = 250
     scrape_top_movies(limit=limit)
     return {"message": f"Scraped {limit} movies and saved to DB"}
 
